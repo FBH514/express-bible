@@ -24,8 +24,13 @@ class Bible:
         verses = doc.find_all('div', {'class': 'item_text'})
         doc.encode('utf-8')
         data = []
+
         if user:
-            number = int(number)
+            if number <= 1000:
+                number = int(number)
+            else:
+                number = 1000
+
         print(f"Downloading {number} verses...")
         with open("verses.json", "w") as file:
             for item in range(number):
@@ -83,6 +88,7 @@ class Bible:
         if customised == "y":
             self.save_data()
         else:
+            print("1000 verses are available.")
             verses = self.user("How many verses do you want to download? (>100 Recommended) ")
             self.save_data(user=True, number=int(verses))
         self.bible()
